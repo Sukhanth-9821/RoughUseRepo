@@ -13,17 +13,13 @@ pipeline {
                         id: 'approvalForStage2',
                         message: 'Do you want to proceed with Stage 2?',
                         parameters: [
-                            booleanParam(
-                                defaultValue: true,
-                                description: 'Proceed with Stage 2?',
-                                name: 'APPROVE_STAGE2'
+                            choice(
+                                choices: ['Yes', 'No'],
+                                description: 'Proceed with Stage 2?'
                             )
-                        ],
-                        // Use returnStdout to capture the user's input
-                        // as a String
-                        returnStdout: true
+                        ]
                     )
-                    if (userInput.trim() == 'true') {
+                    if (userInput == 'Yes') {
                         echo "Approved to run Stage 2"
                     } else {
                         error "Skipped Stage 2 as per user's choice"
