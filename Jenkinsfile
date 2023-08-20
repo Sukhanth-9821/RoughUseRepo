@@ -11,15 +11,13 @@ pipeline {
                 script {
                     def userInput = input(
                         id: 'approvalForStage2',
-                        message: 'Do you want to proceed with Stage 2?',
+                        message: 'Do you want to proceed with Stage 2? (Yes/No)',
+                        submitter: 'user',
                         parameters: [
-                            choice(
-                                choices: ['Yes', 'No'],
-                                description: 'Proceed with Stage 2?'
-                            )
+                            [$class: 'BooleanParameterDefinition', defaultValue: true, description: 'Proceed with Stage 2?', name: 'APPROVE_STAGE2']
                         ]
                     )
-                    if (userInput == 'Yes') {
+                    if (userInput) {
                         echo "Approved to run Stage 2"
                     } else {
                         error "Skipped Stage 2 as per user's choice"
