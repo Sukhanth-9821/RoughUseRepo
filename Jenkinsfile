@@ -18,9 +18,12 @@ pipeline {
                                 description: 'Proceed with Stage 2?',
                                 name: 'APPROVE_STAGE2'
                             )
-                        ]
+                        ],
+                        // Use returnStdout to capture the user's input
+                        // as a String
+                        returnStdout: true
                     )
-                    if (userInput['APPROVE_STAGE2']) {
+                    if (userInput.trim() == 'true') {
                         echo "Approved to run Stage 2"
                     } else {
                         error "Skipped Stage 2 as per user's choice"
